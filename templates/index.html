@@ -41,7 +41,7 @@
                         <div>{{ place.description }}</div>
                         <div>{{ place.earnings }} $</div>
                         <form action="{% url 'use_place' place.name %}">
-                            <button type="submit">Use</button>
+                            <button type="submit">Go!</button>
                         </form>
                         <form action="{% url 'move_all_to_place' place.name %}">
                             <button type="submit">Move every weapon to {{ place.name }}</button>

@@ -49,14 +49,19 @@ class Place(models.Model):
         if self.utility == "sell":
             for weapon in weapons:
                 if weapon.place.utility == "sell":
+                    if weapon.status == "broken":
+                        self.earnings -= weapon.price / 2
                     self.earnings += weapon.price - weapon.age * 5
                     weapon.delete()
         if self.utility == "earn new weapons":
+            if len(Weapon.objects.filter(place=self)) > 3:
+                return
             if len(weapons) == 0:
                 self.earnings -= 5000
                 new_weapon = Weapon(
                     "SUPER:" + str(random.randint(0, 1000)), "new", random.randint(0, 100), random.randint(10, 1000), self)
                 new_weapon.save()
+                self.save()
                 return
             self.earnings -= 500
             for weapon in weapons:
@@ -67,7 +72,8 @@ class Place(models.Model):
                         self.earnings -= weapon.age
                         weapon.save()
                     else:
+                        status = random.choice(["new", "broken"])
                         new_weapon = Weapon(
-                            "SUPER:" + str(random.randint(0, 1000)), "new", random.randint(0, 100), random.randint(10, 1000), self)
+                            "SUPER:" + str(random.randint(0, 1000)), status, random.randint(0, 100), random.randint(10, 1000), self)
                         new_weapon.save()
         self.save()
