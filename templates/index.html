@@ -13,22 +13,23 @@
 
 <body style="background-color: darkgray">
     <h1 class="text-center">Weaponry</h1>
+    <h3 class="text-center">Earnings : {{ total_earnings }} $</h3>
     <div class="container">
         <div class="row">
             <div class="col-8">
                 <ul>
                     {% for weapon in weapons %}
-                    <li>
-                        <strong>{{ weapon.name }}</strong>
-                        <ul>
-                            <li>status: {{ weapon.status }}, age : {{ weapon.age }}
-                            </li>
-                            <li>Where?: {{ weapon.place }}</li>
-                            <form method="get" action="{% url 'update_weapon' weapon.name %}">
-                                <button type="submit">Update Product</button>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ weapon.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ weapon.price }} $</h6>
+                            <p class="card-text"> {{ weapon.status }}, Age {{ weapon.age }}</p>
+                            <form action="{% url 'update_weapon' weapon.name %}">
+                                <button type="submit">Move from {{ weapon.place }}</button>
                             </form>
-                        </ul>
-                    </li>
+
+                        </div>
+                    </div>
                     {% endfor %}
                 </ul>
             </div>
@@ -38,7 +39,15 @@
                     <li>
                         <strong>{{ place.name }} :</strong>
                         <div>{{ place.description }}</div>
+                        <div>{{ place.earnings }} $</div>
+                        <form action="{% url 'use_place' place.name %}">
+                            <button type="submit">Use</button>
+                        </form>
+                        <form action="{% url 'move_all_to_place' place.name %}">
+                            <button type="submit">Move every weapon to {{ place.name }}</button>
+                        </form>
                     </li>
+
                     {% endfor %}
                 </ul>
             </div>

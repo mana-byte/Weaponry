@@ -5,7 +5,7 @@ from .models import Weapon, Place
 class WeaponForm(forms.ModelForm):
     class Meta:
         model = Weapon
-        fields = '__all__'
+        fields = ['place']
 
 
 class PlaceForm(forms.ModelForm):
