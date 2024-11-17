@@ -21,8 +21,12 @@
                     <li>
                         <strong>{{ weapon.name }}</strong>
                         <ul>
-                            <li>status: {{ weapon.status }}, age : {{ weapon.age }}</li>
+                            <li>status: {{ weapon.status }}, age : {{ weapon.age }}
+                            </li>
                             <li>Where?: {{ weapon.place }}</li>
+                            <form method="get" action="{% url 'update_weapon' weapon.name %}">
+                                <button type="submit">Update Product</button>
+                            </form>
                         </ul>
                     </li>
                     {% endfor %}
