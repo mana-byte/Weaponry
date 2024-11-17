@@ -19,6 +19,7 @@ class Weapon(models.Model):
 
 class Place(models.Model):
     name = models.CharField(max_length=100, primary_key=True)
+    description = models.TextField(default="No description")
 
     def __str__(self):
         return self.name
